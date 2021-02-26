@@ -40,7 +40,7 @@ function Produtos({ navigation }) {
     <View>
       <ScrollView>
         <Image
-          source={require("../assets/images/lrv.png")}
+          source={require("../assets/images/fundo_lrv.png")}
           style={tela.imagem}
         />
 
@@ -53,7 +53,7 @@ function Produtos({ navigation }) {
               <View>
                 <Image
                   source={{
-                    uri: `${host}ismael/img/${item.foto}`,
+                    uri: `${host}ismael/lrv/img/${item.foto}`,
                   }}
                   style={tela.img}
                 />

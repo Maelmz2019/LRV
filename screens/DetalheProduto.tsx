@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Text, View } from "../components/Themed";
-import Carousel from "@khanshamshad32/carousel";
 import { ActivityIndicator, Image, StyleSheet } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import {host} from '../config/host';
@@ -13,7 +12,7 @@ export default function DetalheProduto({ route }) {
 
   React.useEffect(() => {
     fetch(
-      `${host}/nike/service/produto/detalheproduto.php?idproduto=${idproduto}`
+      `${host}ismael/lrv/service/produto/detalheproduto.php?idproduto=${idproduto}`
     )
       .then((response) => response.json())
       .then((produto) => setDados(produto.saida))
@@ -32,21 +31,29 @@ export default function DetalheProduto({ route }) {
           data={dados}
           renderItem={({ item }) => (
             <View>
+
               <Image
                 source={{
-                  uri: `${host}nike/img/${item.foto1}`,
+                  uri: `${host}ismael/lrv/img/${item.foto1}`,
                 }}
                 style={tela.img}
               />
               <Image
                 source={{
-                  uri: `${host}nike/img/${item.foto3}`,
+                  uri: `${host}ismael/lrv/img/${item.foto2}`,
+                }}
+                style={tela.img}
+              />
+              
+              <Image
+                source={{
+                  uri: `${host}ismael/lrv/img/${item.foto3}`,
                 }}
                 style={tela.img}
               />
               <Image
                 source={{
-                  uri: `${host}nike/img/${item.foto4}`,
+                  uri: `${host}ismael/lrv/img/${item.foto4}`,
                 }}
                 style={tela.img}
               />
@@ -88,7 +95,7 @@ const tela = StyleSheet.create({
 });
 //Fazer a constante do banco de dados. Vamos chamarde db
 
-const db = SQLite.openDatabase("dbnike.banco");
+const db = SQLite.openDatabase("dbloja.banco");
 
 function adicionarAoCarrinho(id, nome, preco, foto) {
   db.transaction((tx) => {

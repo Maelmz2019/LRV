@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import {host} from '../config/host';
-
+import * as SQLite from 'expo-sqlite';
 let nome = "";
 let cpf = "";
 let sx = "";
@@ -50,23 +50,18 @@ export default function Cadastrar() {
   const [cepcli, setCEPcli] = React.useState("");
 
   return (
-    <View style={estilo.area}>
+    <View style={style.area}>
       <ScrollView>
         <ImageBackground
-          source={require("../assets/images/fundo_lrv.png")}
-          style={estilo.fundo}
+          source={require("../assets/images/lrv.png")}
+          style={style.fundo}
         >
-          <Image
-            source={require("../assets/images/lrv.png")}
-            style={estilo.icon}
-          />
-
-          <Text style={estilo.titulo}>Dados Essenciais</Text>
-          <View style={estilo.dados}>
+          <Text style={style.titulo}>Dados Essenciais</Text>
+          <View style={style.dados}>
             <TextInput
               placeholder="Nome Completo"
               placeholderTextColor="#bdbdbd"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setNomecli(value)}
               value={nomecli}
             />
@@ -74,7 +69,7 @@ export default function Cadastrar() {
               placeholder="CPF"
               placeholderTextColor="#bdbdbd"
               keyboardType="number-pad"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setCPFcli(value)}
               value={cpfcli}
             />
@@ -82,7 +77,7 @@ export default function Cadastrar() {
               selectedValue={sexo}
               mode="dialog"
               onValueChange={setSexo}
-              style={estilo.input}
+              style={style.input}
             >
               <Picker.Item label="Sexo" value="" />
               <Picker.Item label="M" value="M" />
@@ -90,12 +85,12 @@ export default function Cadastrar() {
             </Picker>
           </View>
 
-          <View style={estilo.dados}>
-            <Text style={estilo.titulo}>Acesso</Text>
+          <View style={style.dados}>
+            <Text style={style.titulo}>Acesso</Text>
             <TextInput
               placeholder="Usuário"
               placeholderTextColor="#bdbdbd"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setUsuario(value)}
               value={usuario}
             />
@@ -103,7 +98,7 @@ export default function Cadastrar() {
               secureTextEntry
               placeholder="Senha"
               placeholderTextColor="#bdbdbd"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setSenha(value)}
               value={senha}
             />
@@ -111,19 +106,19 @@ export default function Cadastrar() {
               secureTextEntry
               placeholder="Confirme"
               placeholderTextColor="#bdbdbd"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setConfirmar(value)}
               value={confirmar}
             />
           </View>
 
-          <View style={estilo.dados}>
-            <Text style={estilo.titulo}>Contato</Text>
+          <View style={style.dados}>
+            <Text style={style.titulo}>Contato</Text>
             <TextInput
               placeholder="E-Mail"
               placeholderTextColor="#bdbdbd"
               keyboardType="email-address"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setEmail(value)}
               value={email}
             />
@@ -131,19 +126,19 @@ export default function Cadastrar() {
               placeholder="Telefone"
               placeholderTextColor="#bdbdbd"
               keyboardType="phone-pad"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setTelefone(value)}
               value={telefone}
             />
           </View>
 
-          <View style={estilo.dados}>
-            <Text style={estilo.titulo}>Localização</Text>
+          <View style={style.dados}>
+            <Text style={style.titulo}>Localização</Text>
             <Picker
               mode="dialog"
               selectedValue={tipo}
               onValueChange={setTipo}
-              style={estilo.input}
+              style={style.input}
             >
               <Picker.Item label="Tipo" value="Tipo" />
               <Picker.Item label="Av" value="Av" />
@@ -154,7 +149,7 @@ export default function Cadastrar() {
             <TextInput
               placeholder="Logradouro"
               placeholderTextColor="#bdbdbd"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setLogradouro(value)}
               value={logradouro}
             />
@@ -162,21 +157,21 @@ export default function Cadastrar() {
               placeholder="Número"
               placeholderTextColor="#bdbdbd"
               keyboardType="number-pad"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setNumero(value)}
               value={numero}
             />
             <TextInput
               placeholder="Complemento"
               placeholderTextColor="#bdbdbd"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setComplemento(value)}
               value={complemento}
             />
             <TextInput
               placeholder="Bairro"
               placeholderTextColor="#bdbdbd"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setBairro(value)}
               value={bairro}
             />
@@ -184,13 +179,13 @@ export default function Cadastrar() {
               placeholder="CEP"
               placeholderTextColor="#bdbdbd"
               keyboardType="numeric"
-              style={estilo.input}
+              style={style.input}
               onChangeText={(value) => setCEPcli(value)}
               value={cepcli}
             />
           </View>
           <TouchableOpacity
-            style={estilo.cadastrar}
+            style={style.cadastrar}
             onPress={() => {
               us = usuario;
               sh = senha;
@@ -210,7 +205,7 @@ export default function Cadastrar() {
               efetuarCadastro();
             }}
           >
-            <Text style={estilo.txtCadastrar}> Cadastrar </Text>
+            <Text style={style.txtCadastrar}> Cadastrar </Text>
           </TouchableOpacity>
         </ImageBackground>
       </ScrollView>
@@ -218,7 +213,7 @@ export default function Cadastrar() {
   );
 }
 
-const estilo = StyleSheet.create({
+const style = StyleSheet.create({
   area: {
     backgroundColor: "black",
     flex: 1,

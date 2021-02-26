@@ -1,85 +1,324 @@
 import * as React from "react";
-import { Text, View } from "../components/Themed";
-import { StyleSheet } from "react-native";
-import * as SQLite from "expo-sqlite";
-import { Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Text, View, Icon } from "../components/Themed";
+import {
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native-gesture-handler";
+import {
+  SectionList,
+  Picker,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Alert,
+} from "react-native";
+import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import {host} from '../config/host';
-const db = SQLite.openDatabase("dbnike.banco");
 
-export default function Perfil() {
-  const [perfil, setPerfil] = React.useState([]);
+let nome = "";
+let cpf = "";
+let sx = "";
+let us = "";
+let sh = "";
+let cf = "";
+let ft = "user.png";
+let em = "";
+let tel = "";
+let tp = "";
+let lg = "";
+let nu = "";
+let cp = "";
+let ba = "";
+let cep = "";
 
-  React.useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql("select * from perfil", [], (_, { rows: { _array } }) => {
-        setPerfil(_array);
-      });
-    });
-  }, []);
+export default function Cadastrar() {
+  const [sexo, setSexo] = React.useState("");
+  const [tipo, setTipo] = React.useState("");
+  const [nomecli, setNomecli] = React.useState("");
+  const [cpfcli, setCPFcli] = React.useState("");
+  const [usuario, setUsuario] = React.useState("");
+  const [senha, setSenha] = React.useState("");
+  const [confirmar, setConfirmar] = React.useState("");
+  const [foto, setFoto] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [telefone, setTelefone] = React.useState("");
+  const [logradouro, setLogradouro] = React.useState("");
+  const [numero, setNumero] = React.useState("");
+  const [complemento, setComplemento] = React.useState("");
+  const [bairro, setBairro] = React.useState("");
+  const [cepcli, setCEPcli] = React.useState("");
 
   return (
-    <View style={{ flex: 1 }}>
-      <Text>Meu Perfil</Text>
+    <View style={estilo.area}>
+      <ScrollView>
+        <ImageBackground
+          source={require("../assets/images/lrv.png")}
+          style={estilo.fundo}
+        >
+          <Image
+            source={require("../assets/images/fundoalternativo.jpg")}
+            style={estilo.icon}
+          />
 
-      {perfil.map(
-        ({
-          id,
-          idusuario,
-          nomeusuario,
-          foto,
-          nomecliente,
-          cpf,
-          sexo,
-          email,
-          telefone,
-          tipo,
-          logradouro,
-          numero,
-          complemento,
-          bairro,
-          cep,
-          logado,
-        }) => (
-          <View style={{ flex: 1 }}>
-            <Image
-              source={{ uri: `${host}nike/img/${foto}` }}
-              style={tela.img}
+          <Text style={estilo.titulo}>Dados Essenciais</Text>
+          <View style={estilo.dados}>
+            <TextInput
+              placeholder="Nome Completo"
+              placeholderTextColor="#bdbdbd"
+              style={estilo.input}
+              onChangeText={(value) => setNomecli(value)}
+              value={nomecli}
             />
-            <Text>Usuário:{nomeusuario}</Text>
-            <Text>Nome:{nomecliente}</Text>
-            <Text>CPF:{cpf}</Text>
-            <Text>Sexo:{sexo}</Text>
-            <Text>E-Mail:{email}</Text>
-            <Text>Telefone:{telefone}</Text>
-            <Text>Tipo:{tipo}</Text>
-            <Text>Logradouro:{logradouro}</Text>
-            <Text>Número:{numero}</Text>
-            <Text>Complemento:{complemento}</Text>
-            <Text>Bairro:{bairro}</Text>
-            <Text>CEP:{cep}</Text>
-
-            <TouchableOpacity>
-              <Text>Editar Perfil</Text>
-            </TouchableOpacity>
+            <TextInput
+              placeholder="CPF"
+              placeholderTextColor="#bdbdbd"
+              keyboardType="number-pad"
+              style={estilo.input}
+              onChangeText={(value) => setCPFcli(value)}
+              value={cpfcli}
+            />
+            <Picker
+              selectedValue={sexo}
+              mode="dialog"
+              onValueChange={setSexo}
+              style={estilo.input}
+            >
+              <Picker.Item label="Sexo" value="" />
+              <Picker.Item label="M" value="M" />
+              <Picker.Item label="F" value="F" />
+            </Picker>
           </View>
-        )
-      )}
 
-      <TouchableOpacity>
-        <Text>Sair</Text>
-      </TouchableOpacity>
+          <View style={estilo.dados}>
+            <Text style={estilo.titulo}>Acesso</Text>
+            <TextInput
+              placeholder="Usuário"
+              placeholderTextColor="#bdbdbd"
+              style={estilo.input}
+              onChangeText={(value) => setUsuario(value)}
+              value={usuario}
+            />
+            <TextInput
+              secureTextEntry
+              placeholder="Senha"
+              placeholderTextColor="#bdbdbd"
+              style={estilo.input}
+              onChangeText={(value) => setSenha(value)}
+              value={senha}
+            />
+            <TextInput
+              secureTextEntry
+              placeholder="Confirme"
+              placeholderTextColor="#bdbdbd"
+              style={estilo.input}
+              onChangeText={(value) => setConfirmar(value)}
+              value={confirmar}
+            />
+          </View>
+
+          <View style={estilo.dados}>
+            <Text style={estilo.titulo}>Contato</Text>
+            <TextInput
+              placeholder="E-Mail"
+              placeholderTextColor="#bdbdbd"
+              keyboardType="email-address"
+              style={estilo.input}
+              onChangeText={(value) => setEmail(value)}
+              value={email}
+            />
+            <TextInput
+              placeholder="Telefone"
+              placeholderTextColor="#bdbdbd"
+              keyboardType="phone-pad"
+              style={estilo.input}
+              onChangeText={(value) => setTelefone(value)}
+              value={telefone}
+            />
+          </View>
+
+          <View style={estilo.dados}>
+            <Text style={estilo.titulo}>Localização</Text>
+            <Picker
+              mode="dialog"
+              selectedValue={tipo}
+              onValueChange={setTipo}
+              style={estilo.input}
+            >
+              <Picker.Item label="Tipo" value="Tipo" />
+              <Picker.Item label="Av" value="Av" />
+              <Picker.Item label="Rua" value="Rua" />
+              <Picker.Item label="Al" value="Al" />
+              <Picker.Item label="Praça" value="Praça" />
+            </Picker>
+            <TextInput
+              placeholder="Logradouro"
+              placeholderTextColor="#bdbdbd"
+              style={estilo.input}
+              onChangeText={(value) => setLogradouro(value)}
+              value={logradouro}
+            />
+            <TextInput
+              placeholder="Número"
+              placeholderTextColor="#bdbdbd"
+              keyboardType="number-pad"
+              style={estilo.input}
+              onChangeText={(value) => setNumero(value)}
+              value={numero}
+            />
+            <TextInput
+              placeholder="Complemento"
+              placeholderTextColor="#bdbdbd"
+              style={estilo.input}
+              onChangeText={(value) => setComplemento(value)}
+              value={complemento}
+            />
+            <TextInput
+              placeholder="Bairro"
+              placeholderTextColor="#bdbdbd"
+              style={estilo.input}
+              onChangeText={(value) => setBairro(value)}
+              value={bairro}
+            />
+            <TextInput
+              placeholder="CEP"
+              placeholderTextColor="#bdbdbd"
+              keyboardType="numeric"
+              style={estilo.input}
+              onChangeText={(value) => setCEPcli(value)}
+              value={cepcli}
+            />
+          </View>
+          <TouchableOpacity
+            style={estilo.cadastrar}
+            onPress={() => {
+              us = usuario;
+              sh = senha;
+              nome = nomecli;
+              cpf = cpfcli;
+              sx = sexo;
+              ft = "user.png";
+              em = email;
+              tel = telefone;
+              tp = tipo;
+              lg = logradouro;
+              nu = numero;
+              cp = complemento;
+              ba = bairro;
+              cep = cepcli;
+
+              efetuarCadastro();
+            }}
+          >
+            <Text style={estilo.txtCadastrar}> Cadastrar </Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </ScrollView>
     </View>
   );
 }
-const tela = StyleSheet.create({
-  img: {
-    width: 200,
-    height: 180,
+
+const estilo = StyleSheet.create({
+  area: {
+    backgroundColor: "black",
     flex: 1,
-    resizeMode: "contain",
+    alignContent: "center",
+    justifyContent: "center",
   },
-  link: {
+
+  fundo: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+
+  titulo: {
+    textAlign: "center",
+    borderBottomColor: "transparent",
+    paddingTop: 20,
+    fontSize: 20,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    color: "black",
+  },
+
+  input: {
+    width: "100%",
     padding: 10,
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderBottomColor: "silver",
+    borderBottomWidth: 1,
+    color: "black",
+  },
+  cadastrar: {
+    width: "60%",
+    backgroundColor: "white",
+    paddingVertical: 10,
+    marginTop: 30,
+    marginBottom: 50,
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderRadius: 25,
+    borderColor: "white",
+    borderWidth: 2,
+  },
+  txtCadastrar: {
+    color: "black",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  dados: {
+    borderColor: "white",
+    borderWidth: 1,
+    marginVertical: 5,
+    width: "70%",
+    padding: 5,
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderRadius: 5,
+    backgroundColor: "white",
+    marginBottom: 10,
+    paddingTop: 20,
+  },
+  icon: {
+    width: 150,
+    height: 100,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginVertical: 20,
+    paddingTop: 30,
   },
 });
+
+function efetuarCadastro() {
+  fetch(`${host}ismael/lrv/service/cadastro/cadastro.php`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomecliente: nome,
+      cpf: cpf,
+      sexo: sx,
+      telefone: tel,
+      email: em,
+      tipo: tp,
+      logradouro: lg,
+      numero: nu,
+      complemento: cp,
+      bairro: ba,
+      cep: cep,
+      nomeusuario: us,
+      senha: sh,
+      foto: ft,
+    }),
+  })
+    .then((response) => response.json())
+    .then((resposta) => {
+      console.log(resposta);
+      Alert.alert("Bem-Vindo a Loja Rios Variaedades");
+    })
+    .catch((error) => console.error(error));
+}

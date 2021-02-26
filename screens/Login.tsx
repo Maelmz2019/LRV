@@ -27,13 +27,10 @@ export default function Login({ navigation }) {
   return (
     <View style={estilo.area}>
       <ImageBackground
-        source={require("../assets/images/fundo_lrv.png")}
+        source={require("../assets/images/lrv.png")}
         style={estilo.fundo}
       >
-        <Image
-          source={require("../assets/images/lrv.png")}
-          style={estilo.logo}
-        />
+      
 
         <TextInput
           placeholder="Nome de Usuário"
@@ -62,9 +59,9 @@ export default function Login({ navigation }) {
         >
           <Text style={estilo.txtLogar}> Logar </Text>
         </TouchableOpacity>
-        <Text style={estilo.txtOU}>OU</Text>
+
         <TouchableOpacity
-          style={estilo.cadastrar}
+          style={estilo.logar}
           onPress={() => navigation.navigate("Cadastrar")}
         >
           <Text style={estilo.txtLogar}> Cadastrar </Text>
@@ -113,7 +110,7 @@ const estilo = StyleSheet.create({
     backgroundColor: "white",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 55,
+    marginTop: 30,
     borderColor: "black",
     borderRadius: 25,
     borderWidth: 3,
@@ -147,7 +144,7 @@ const estilo = StyleSheet.create({
   txtOU: {
     fontWeight: "bold",
     textAlign: "center",
-    margin: 30,
+    margin: 0,
   },
 
   logo: {
@@ -157,7 +154,6 @@ const estilo = StyleSheet.create({
     marginRight: "auto",
     marginBottom: 50,
   },
-
   fundo: {
     flex: 1,
     resizeMode: "cover",
@@ -166,7 +162,7 @@ const estilo = StyleSheet.create({
 });
 
 function logar() {
-  fetch(`${host}nike/service/usuario/login.php`, {
+  fetch(`${host}loja/service/usuario/login.php`, {
     method: "POST",
     headers: {
       Accept: "application/json",

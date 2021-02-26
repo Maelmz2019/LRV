@@ -5,7 +5,7 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import {host} from '../config/host';
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("dbnike.banco");
+const db = SQLite.openDatabase("dbloja.banco");
 
 let idc = 0;
 let tp = "";
@@ -200,7 +200,7 @@ const estilo = StyleSheet.create({
 });
 
 function efetuarPagamento() {
-  fetch(`${host}nike/service/pagamento/cadastro.php`, {
+  fetch(`${host}ismael/lrv/service/pagamento/cadastro.php`, {
     method: "POST",
     headers: {
       Accept: "application/json",

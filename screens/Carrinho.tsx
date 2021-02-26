@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Text, View } from "../components/Themed";
 
-import * as SQLite from "expo-sqlite";
+import * as SQLite from 'expo-sqlite';
 import { Image, StyleSheet } from "react-native";
 import { TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -27,9 +27,9 @@ export default function Carrinho({ navigation }) {
     <View style={{ flex: 1 }}>
       <Text>Veja o que tem no carrinho</Text>
       {dados.map(({ id, idproduto, nomeproduto, preco, foto }) => (
-        <View style={{ flex: 1 }} key={idproduto}>
+        <View style={{ flex: 1 }} key={id}>
           <Image
-            source={{ uri: `${host}ismael/img/${foto}` }}
+            source={{ uri: `${host}ismael/lvr/img/${foto}` }}
             style={tela.img}
           />
           <Text>Produto:{nomeproduto}</Text>
@@ -70,4 +70,8 @@ const tela = StyleSheet.create({
   link: {
     padding: 10,
   },
+
+
+  
 });
+
